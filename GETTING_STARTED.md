@@ -70,7 +70,18 @@ What this shows
 - Earlier Zentrube (prefix variance with exponential time decay) for context.
 
 How to run
-  python zeozo_vs_shannon.py
+  python zeozo_quickstart.py
+
+Requirements
+  - Python 3.8+ and numpy installed (pip install numpy)
+
+Edge cases to expect
+  - Very short series: if length < 64, rolling Shannon may print
+    "not enough samples" (increase n or use a smaller win in the function).
+  - Constant or near-constant series: the MAD floor eps is used; y_t≈0,
+    so Z_t≈0 by design (no drift).
+  - NaN values: demo uses a synthetic line. On real data, clean or fill NaNs
+    before calling the functions.
 
 If you want the plot:
   pip install matplotlib
@@ -79,24 +90,24 @@ License note
   © Shunyaya Framework Authors — CC BY-NC 4.0 (non-commercial, with attribution).
   This script is for research, review, and education.
 
-
+~~~python
 import math
 import numpy as np
 
-ZEOZO core (plain-text math)
-----------------------------
-Edge-normalize (robust, global for this demo):
-  med = median(x)
-  rad = median(|x - med|); rad = max(rad, eps)
-  y_t = (x_t - med) / rad
-
-Energy + log compression (bounded):
-  E_t = (1 - lam) * E_{t-1} + lam * (y_t^2)
-  Z_t = log(1 + E_t)
-
-Alignment (slow recovery) and misalignment:
-  A_t = (1 - mu) * A_{t-1} + mu * Z_t
-  Delta_t = |Z_t - A_t|
+# ZEOZO core (plain-text math)
+# ----------------------------
+# Edge-normalize (robust, global for this demo):
+#   med = median(x)
+#   rad = median(|x - med|); rad = max(rad, eps)
+#   y_t = (x_t - med) / rad
+#
+# Energy + log compression (bounded):
+#   E_t = (1 - lam) * E_{t-1} + lam * (y_t**2)
+#   Z_t = log(1 + E_t)
+#
+# Alignment (slow recovery) and misalignment:
+#   A_t = (1 - mu) * A_{t-1} + mu * Z_t
+#   Delta_t = |Z_t - A_t|
 
 def zeozo_core(series, lam=0.10, mu=0.04, eps=1e-6):
     x = np.asarray(series, float)
@@ -227,6 +238,7 @@ if __name__ == "__main__":
         print("\n[note] matplotlib not available. To see a plot:")
         print("  pip install matplotlib")
         print("  then re-run this script.")
+~~~
 
 Reading tip:
 - ZEOZO Z rises promptly on ramps, then stabilizes (bounded, time-aware).
