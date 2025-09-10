@@ -50,20 +50,19 @@
 **Defaults**
 - λ = 0.10,  μ = 0.04,  ε = 1e−6
 
-# zeozo_quickstart.py
-# ZEOZO quick start — minimal, self-contained (ASCII only)
+zeozo_quickstart.py
+ZEOZO quick start — minimal, self-contained (ASCII only)
 
-# Canonical (ASCII):
-#   med = median(x)
-#   rad = median(|x - med|); rad = max(rad, eps)
-#   y_t = (x_t - med) / rad
-#   E_t = (1 - lam)*E_{t-1} + lam*(y_t**2)
-#   Z_t = log(1 + E_t)
-#   A_t = (1 - mu)*A_{t-1} + mu*Z_t
-#   Delta_t = |Z_t - A_t|
+Canonical (ASCII):
+med = median(x)
+rad = median(|x - med|); rad = max(rad, eps)
+y_t = (x_t - med) / rad
+E_t = (1 - lam) * E_{t-1} + lam * (y_t**2)
+Z_t = log(1 + E_t)
+A_t = (1 - mu) * A_{t-1} + mu * Z_t
+Delta_t = |Z_t - A_t|
 
-ZEOZO vs Shannon (and earlier Zentrube) — copy-paste and run
-------------------------------------------------------------
+### Demo — ZEOZO vs Shannon (and earlier Zentrube)
 What this shows
 - A simple demo on y = m*x + c (a clean ramp).
 - ZEOZO: bounded, time-aware readiness signal (reacts, then stabilizes).
