@@ -62,41 +62,43 @@
 #   A_t = (1 - mu)*A_{t-1} + mu*Z_t
 #   Delta_t = |Z_t - A_t|
 
-# ZEOZO vs Shannon (and earlier Zentrube) — copy-paste and run
-# ==============================================================
-# What this shows
-# - A simple demo on y = m*x + c (a clean ramp).
-# - ZEOZO: bounded, time-aware readiness signal (reacts, then stabilizes).
-# - Rolling Shannon: distribution-centric; mostly flat on a clean ramp.
-# - Earlier Zentrube (prefix variance with exponential time decay) for context.
-#
-# How to run
-#   python zeozo_vs_shannon.py
-# If you want the plot:
-#   pip install matplotlib
-#
-# License note
-#   © Shunyaya Framework Authors — CC BY-NC 4.0 (non-commercial, with attribution).
-#   This script is for research, review, and education.
+ZEOZO vs Shannon (and earlier Zentrube) — copy-paste and run
+------------------------------------------------------------
+What this shows
+- A simple demo on y = m*x + c (a clean ramp).
+- ZEOZO: bounded, time-aware readiness signal (reacts, then stabilizes).
+- Rolling Shannon: distribution-centric; mostly flat on a clean ramp.
+- Earlier Zentrube (prefix variance with exponential time decay) for context.
+
+How to run
+  python zeozo_vs_shannon.py
+
+If you want the plot:
+  pip install matplotlib
+
+License note
+  © Shunyaya Framework Authors — CC BY-NC 4.0 (non-commercial, with attribution).
+  This script is for research, review, and education.
+
 
 import math
 import numpy as np
 
-# ---------------------------
-# ZEOZO core (plain-text math)
-# ---------------------------
-# Edge-normalize (robust, global for this demo):
-#   med = median(x)
-#   rad = median(|x - med|); rad = max(rad, eps)
-#   y_t = (x_t - med) / rad
-#
-# Energy + log compression (bounded):
-#   E_t = (1 - lam) * E_{t-1} + lam * (y_t^2)
-#   Z_t = log(1 + E_t)
-#
-# Alignment (slow recovery) and misalignment:
-#   A_t = (1 - mu) * A_{t-1} + mu * Z_t
-#   Delta_t = |Z_t - A_t|
+ZEOZO core (plain-text math)
+----------------------------
+Edge-normalize (robust, global for this demo):
+  med = median(x)
+  rad = median(|x - med|); rad = max(rad, eps)
+  y_t = (x_t - med) / rad
+
+Energy + log compression (bounded):
+  E_t = (1 - lam) * E_{t-1} + lam * (y_t^2)
+  Z_t = log(1 + E_t)
+
+Alignment (slow recovery) and misalignment:
+  A_t = (1 - mu) * A_{t-1} + mu * Z_t
+  Delta_t = |Z_t - A_t|
+
 def zeozo_core(series, lam=0.10, mu=0.04, eps=1e-6):
     x = np.asarray(series, float)
     med = float(np.median(x))
@@ -120,11 +122,11 @@ def zeozo_core(series, lam=0.10, mu=0.04, eps=1e-6):
     Delta = np.abs(Z - A)
     return Z, A, Delta
 
-# ---------------------------------------
-# Rolling Shannon on edge-normalized data
-# ---------------------------------------
-# Windowed histogram entropy (nats) on y_t.
-# Fixed bin edges across the whole stream to reduce wiggles.
+Rolling Shannon on edge-normalized data
+---------------------------------------
+Windowed histogram entropy (nats) on y_t.
+Fixed bin edges across the whole stream to reduce wiggles.
+
 def rolling_shannon_on_edges(series, win=64, bins=20, eps=1e-6):
     x = np.asarray(series, float)
     med = float(np.median(x))
@@ -153,11 +155,11 @@ def rolling_shannon_on_edges(series, win=64, bins=20, eps=1e-6):
         H[t] = H_t
     return H
 
-# --------------------------------------------------------
-# Earlier canonical (Zentrube, prefix variance with decay)
-# --------------------------------------------------------
-# Zentrube_t = log(Var(x_0:t) + 1) * exp(-lambda_time * t)
-# Uses population variance via Welford for each prefix.
+Earlier canonical (Zentrube, prefix variance with decay)
+--------------------------------------------------------
+Zentrube_t = log(Var(x_0:t) + 1) * exp(-lambda_time * t)
+Uses population variance via Welford for each prefix.
+
 def zentrube_prefix(series, lambda_time=0.02):
     arr = np.asarray(series, float)
     Zp = []
