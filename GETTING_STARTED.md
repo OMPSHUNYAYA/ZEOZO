@@ -231,6 +231,53 @@ Reading tip:
 - ZEOZO Z rises promptly on ramps, then stabilizes (bounded, time-aware).
 - A is a slow alignment track; Δ = |Z − A| highlights misalignment.
 
+## What’s next (whitepapers and scripts)
+
+We will publish detailed whitepapers and runnable scripts for each domain here.  
+Each drop will include:
+- a short plain-text canonical,
+- a minimal demo script you can run locally,
+- a small evaluation note with clear, observation-only metrics.
+
+Planned drops (rolling):
+- Geometry — symbolic drift overlays, curvature alignment demo.
+- Earthquakes — corridor readiness and lead-to-mainshock checks.
+- Hurricanes — wind and pressure tracks with early-lead validation.
+- ECG — anomaly visibility on public records.
+- Cybersecurity — burst detection on labeled flows.
+- Insurance — entropy-tempered annuity valuation.
+- Telecom — jitter anticipation on RTP traces.
+- Snowfall — event-based mass with universal caps.
+
+Want to follow along?  
+Star the repo, watch releases, and open an issue with the domain you want first.
+
+## License
+
+![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-blue?style=flat&logo=creative-commons)
+
+© The Authors of Shunyaya Framework, ZEOZO, and Zentrube  
+Released under CC BY-NC 4.0 (non-commercial, with attribution).  
+Use for research, review, and education. Commercial use and resale are prohibited.
+
+Note: GitHub’s chooser may not list CC BY-NC 4.0. It is still the governing license for this repository as declared here.
+
+---
+
+## How to cite
+
+If you use this work, please cite the repository:
+
+Shunyaya Framework Authors (2025).  
+ZEOZO: A bounded, entropy-aware, zero-centric canonical.  
+GitHub repository: https://github.com/OMPSHUNYAYA/ZEOZO  
+License: CC BY-NC 4.0.
+
+---
+
+## Suggested GitHub Topics (Repo → About)
+
+`entropy` • `information-theory` • `time-series` • `drift-detection` • `anomaly-detection` • `early-warning` • `resilience` • `zeozo` • `zentrube` • `shunyaya` • `geometry` • `earthquakes` • `hurricanes` • `ecg` • `cybersecurity` • `insurance` • `telecom` • `snow`
 
 
 
